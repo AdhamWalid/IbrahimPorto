@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- Color palette and design tokens  -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soleya Compound — Interior Design Portfolio · AR. Ibrahim Haskoor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --dark:       #0D0D0D;
+  --dark-2:     #141414;
+  --dark-3:     #1C1C1C;
+  --dark-4:     #242424;
+  --mid:        #2E2E2E;
+  --light:      #F5F2EE;
+  --light-2:    #FAFAF8;
+  --gold:       #C9A96E;
+  --gold-dim:   rgba(201,169,110,0.18);
+  --gold-line:  rgba(201,169,110,0.30);
+  --copper:     #B07A45;
+  --white:      #FFFFFF;
+  --text-main:  #F0EDE8;
+  --text-muted: rgba(240,237,232,0.50);
+  --text-dim:   rgba(240,237,232,0.28);
+  --text-dark:  #1A1A1A;
+  --text-dark2: #4A4A4A;
+  --accent:     #4A90B8;
+  --green-wa:   #25D366;
+  --radius:     4px;
+  --section-pad: 7rem;
+  --transition:  0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--dark);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+═══════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-left  { opacity:0; transform:translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal-right { opacity:0; transform:translateX( 40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal-left.visible, .reveal-right.visible { opacity:1; transform:none; }
+.delay-1 { transition-delay: 0.10s; }
+.delay-2 { transition-delay: 0.20s; }
+.delay-3 { transition-delay: 0.30s; }
+.delay-4 { transition-delay: 0.40s; }
+.delay-5 { transition-delay: 0.50s; }
+
+/* ═══════════════════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════════════════ */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,5,0.97);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+#lightbox.active { display: flex; }
+#lightbox img { max-width:100%; max-height:90vh; object-fit:contain; display:block; border-radius:2px; }
+.lb-close {
+  position:absolute; top:1.5rem; right:2rem;
+  background:none; border:none; color:rgba(255,255,255,0.4);
+  font-size:2.2rem; cursor:pointer; font-weight:200; line-height:1;
+  transition: color 0.2s;
+}
+.lb-close:hover { color:#fff; }
+.lb-prev, .lb-next {
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:none; border:1px solid rgba(201,169,110,0.2);
+  color:rgba(255,255,255,0.45); width:50px; height:50px;
+  cursor:pointer; font-size:1.1rem; display:flex;
+  align-items:center; justify-content:center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.lb-prev { left:1.5rem; }
+.lb-next { right:1.5rem; }
+.lb-prev:hover, .lb-next:hover { border-color:var(--gold); color:var(--gold); }
+#lb-caption {
+  position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%);
+  font-size:11px; letter-spacing:2px; color:rgba(255,255,255,0.28);
+  text-transform:uppercase; white-space:nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO / COVER
+═══════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  background: var(--dark-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 2rem 7rem;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 60%, rgba(74,144,184,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(201,169,110,0.08) 0%, transparent 55%);
+  pointer-events:none;
+}
+.hero-grid-overlay {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid var(--gold-line);
+  padding:6px 18px;
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); font-weight:300;
+  margin-bottom:2.5rem;
+  animation: fadeDown 0.9s ease both;
+}
+.hero-badge-dot { width:5px; height:5px; border-radius:50%; background:var(--gold); }
+.hero-project {
+  font-family:'Cormorant Garamond', serif;
+  font-weight:300;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  color: var(--white);
+  line-height:0.95;
+  letter-spacing:-0.025em;
+  margin-bottom:0.5rem;
+  animation: fadeDown 1.0s 0.15s ease both;
+}
+.hero-project em {
+  font-style:italic;
+  color:var(--gold);
+  display:block;
+}
+.hero-line {
+  width:80px; height:1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 2rem auto;
+  animation: fadeIn 1s 0.3s ease both;
+}
+.hero-client-row {
+  display:flex; align-items:center; gap:2rem; justify-content:center;
+  animation: fadeDown 1.0s 0.35s ease both;
+}
+.hero-client-label {
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--text-muted); font-weight:300;
+}
+.hero-client-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.5rem; font-weight:400;
+  color:var(--text-main);
+}
+.hero-sep { width:1px; height:24px; background:var(--gold-line); }
+.hero-meta {
+  display:flex; gap:4rem; margin-top:3rem; justify-content:center;
+  animation: fadeDown 1.0s 0.5s ease both;
+}
+.hero-meta-item { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.hero-meta-lbl {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--text-dim); font-weight:300;
+}
+.hero-meta-val {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.1rem; color:var(--gold); font-weight:400;
+}
+.hero-scroll {
+  position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  animation: fadeIn 1.2s 0.8s ease both;
+}
+.hero-scroll-dot {
+  width:1px; height:50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.hero-scroll-txt {
+  font-size:9px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--text-dim); writing-mode:horizontal-tb;
+}
+
+@keyframes fadeDown  { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════ */
+.nav {
+  position:sticky; top:0; z-index:500;
+  background: rgba(13,13,13,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  display:flex; align-items:center; justify-content:space-between;
+  height:60px; padding:0 3rem;
+}
+.nav-brand {
+  display:flex; align-items:center; gap:10px;
+}
+.nav-brand img {
+  height:36px; width:auto; filter:brightness(1.1);
+}
+.nav-brand-name {
+  font-size:12px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); font-weight:300;
+}
+.nav-links { display:flex; list-style:none; gap:0; }
+.nav-links a {
+  display:block; padding:0 1rem; height:60px; line-height:60px;
+  font-size:11px; letter-spacing:2px; text-transform:uppercase;
+  text-decoration:none; color:var(--text-muted); font-weight:300;
+  border-bottom:2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color:var(--gold); border-bottom-color:var(--gold); }
+.nav-hamburger { display:none; background:none; border:none; cursor:pointer; }
+.nav-hamburger span {
+  display:block; width:22px; height:1.5px; background:var(--gold);
+  margin:5px 0; transition:0.3s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION LAYOUT
+═══════════════════════════════════════════════════════ */
+.section { padding: var(--section-pad) 0; }
+.section-light { background:var(--light); }
+.section-dark  { background:var(--dark-3); }
+
+.container {
+  max-width:1320px; margin:0 auto; padding:0 4rem;
+}
+
+.section-head {
+  display:grid; grid-template-columns:auto 1fr; gap:3rem;
+  align-items:start; margin-bottom:4.5rem;
+}
+.section-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:6rem; font-weight:300; line-height:1;
+  color:rgba(201,169,110,0.12); user-select:none;
+  margin-top:-0.5rem;
+}
+.section-head-body {}
+.section-tag {
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); font-weight:400; margin-bottom:0.6rem;
+}
+.section-tag-dark {
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--copper); font-weight:400; margin-bottom:0.6rem;
+}
+.section-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight:300; line-height:1.1;
+  color:var(--text-main); margin-bottom:1rem;
+}
+.section-title-dark {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight:300; line-height:1.1;
+  color:var(--text-dark); margin-bottom:1rem;
+}
+.section-title em, .section-title-dark em { font-style:italic; color:var(--gold); }
+.section-rule { width:48px; height:1px; background:var(--gold); margin-bottom:1rem; }
+.section-rule-dark { width:48px; height:1px; background:var(--copper); margin-bottom:1rem; }
+.section-desc {
+  font-size:14px; color:var(--text-muted); font-weight:300;
+  max-width:480px; line-height:1.85;
+}
+.section-desc-dark {
+  font-size:14px; color:var(--text-dark2); font-weight:300;
+  max-width:480px; line-height:1.85;
+}
+
+/* ═══════════════════════════════════════════════════════
+   IMAGE GALLERY
+═══════════════════════════════════════════════════════ */
+.gallery-hero { display:grid; grid-template-columns:1.55fr 1fr; gap:4px; margin-bottom:4px; }
+.gallery-3    { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin-bottom:4px; }
+.gallery-2    { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-bottom:4px; }
+.gallery-4    { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-bottom:4px; }
+.gallery-2-3  { display:grid; grid-template-columns:1fr 1.6fr; gap:4px; }
+
+.img-wrap {
+  overflow:hidden; position:relative; cursor:zoom-in;
+  background:var(--mid);
+}
+.img-wrap img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition: transform var(--transition);
+}
+.img-wrap:hover img { transform:scale(1.05); }
+.img-wrap::after {
+  content:'';
+  position:absolute; inset:0;
+  background: rgba(0,0,0,0);
+  transition: background 0.4s;
+  pointer-events:none;
+}
+.img-wrap:hover::after { background: rgba(0,0,0,0.12); }
+
+.img-xl  { height:540px; }
+.img-lg  { height:400px; }
+.img-md  { height:300px; }
+.img-sm  { height:240px; }
+.img-xs  { height:200px; }
+
+/* ═══════════════════════════════════════════════════════
+   FLOOR PLAN FEATURE BLOCK
+═══════════════════════════════════════════════════════ */
+.floorplan-block {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; margin-top:4px;
+  border:1px solid var(--gold-line);
+}
+.floorplan-img-wrap {
+  background: var(--dark-4);
+  display:flex; align-items:center; justify-content:center;
+  padding:2rem; min-height:340px;
+}
+.floorplan-img-wrap img { max-width:100%; max-height:300px; object-fit:contain; }
+.floorplan-info {
+  padding:3rem; display:flex; flex-direction:column; justify-content:center;
+  border-left:1px solid var(--gold-line);
+}
+.floorplan-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:9px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); font-weight:300; margin-bottom:1.5rem;
+}
+.floorplan-badge::before {
+  content:''; width:24px; height:1px; background:var(--gold);
+}
+.floorplan-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.8rem; font-weight:300; color:var(--text-main);
+  margin-bottom:1rem; font-style:italic;
+}
+.floorplan-desc {
+  font-size:13px; color:var(--text-muted); font-weight:300; line-height:1.8;
+  margin-bottom:2rem;
+}
+.floorplan-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--gold-line); }
+.floorplan-stat { background:var(--dark-3); padding:1rem 1.25rem; }
+.floorplan-stat-lbl { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--text-dim); margin-bottom:4px; }
+.floorplan-stat-val { font-family:'Cormorant Garamond', serif; font-size:1.25rem; color:var(--gold); font-weight:300; }
+
+/* Light section floor plan */
+.floorplan-block-light {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; margin-top:4px;
+  border:1px solid rgba(180,140,90,0.2);
+}
+.floorplan-img-wrap-light {
+  background:#EDE8E0;
+  display:flex; align-items:center; justify-content:center;
+  padding:2rem; min-height:340px;
+}
+.floorplan-img-wrap-light img { max-width:100%; max-height:300px; object-fit:contain; }
+.floorplan-info-light {
+  padding:3rem; display:flex; flex-direction:column; justify-content:center;
+  border-left:1px solid rgba(180,140,90,0.2);
+  background:var(--light-2);
+}
+.floorplan-title-light {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.8rem; font-weight:300; color:var(--text-dark);
+  margin-bottom:1rem; font-style:italic;
+}
+.floorplan-desc-light {
+  font-size:13px; color:var(--text-dark2); font-weight:300; line-height:1.8;
+  margin-bottom:2rem;
+}
+.floorplan-stats-light { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(180,140,90,0.2); }
+.floorplan-stat-light { background:var(--light); padding:1rem 1.25rem; }
+.floorplan-stat-lbl-light { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:#999; margin-bottom:4px; }
+.floorplan-stat-val-light { font-family:'Cormorant Garamond', serif; font-size:1.25rem; color:var(--copper); font-weight:300; }
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN FEATURE CARDS
+═══════════════════════════════════════════════════════ */
+.features-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:rgba(201,169,110,0.08);
+  border:1px solid var(--gold-line); margin-top:3rem;
+}
+.feature-card {
+  padding:2.25rem 2rem; background:var(--dark-3);
+  transition: background 0.3s;
+}
+.feature-card:hover { background:var(--dark-4); }
+.feature-bar { width:36px; height:2px; background:var(--gold); margin-bottom:1.5rem; }
+.feature-lbl {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--text-dim); margin-bottom:0.4rem; font-weight:300;
+}
+.feature-name {
+  font-size:15px; font-weight:500; color:var(--text-main);
+  margin-bottom:0.6rem; letter-spacing:0.01em;
+}
+.feature-desc { font-size:12.5px; color:var(--text-muted); font-weight:300; line-height:1.75; }
+
+.features-grid-light {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:rgba(180,140,90,0.15);
+  border:1px solid rgba(180,140,90,0.2); margin-top:3rem;
+}
+.feature-card-light {
+  padding:2.25rem 2rem; background:var(--light-2);
+  transition: background 0.3s;
+}
+.feature-card-light:hover { background:#EDE8DF; }
+.feature-bar-light { width:36px; height:2px; background:var(--copper); margin-bottom:1.5rem; }
+.feature-lbl-light {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:#AAA; margin-bottom:0.4rem; font-weight:300;
+}
+.feature-name-light { font-size:15px; font-weight:500; color:var(--text-dark); margin-bottom:0.6rem; }
+.feature-desc-light { font-size:12.5px; color:var(--text-dark2); font-weight:300; line-height:1.75; }
+
+/* ═══════════════════════════════════════════════════════
+   VIDEO BLOCK
+═══════════════════════════════════════════════════════ */
+.video-block {
+  position:relative; height:380px; margin-top:4px;
+  background:var(--dark-4); display:flex;
+  flex-direction:column; align-items:center; justify-content:center; gap:1.25rem;
+  border:1px solid var(--gold-line); overflow:hidden;
+  cursor:pointer;
+}
+.video-block::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, rgba(74,144,184,0.06) 0%, transparent 70%);
+}
+.vplay {
+  width:72px; height:72px; border-radius:50%;
+  border:1px solid rgba(201,169,110,0.35);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; transition:transform 0.3s, border-color 0.3s;
+}
+.video-block:hover .vplay { transform:scale(1.1); border-color:var(--gold); }
+.vplay::after {
+  content:''; width:0; height:0;
+  border-style:solid; border-width:10px 0 10px 18px;
+  border-color:transparent transparent transparent var(--gold);
+  margin-left:4px;
+}
+.vtitle {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.2rem; font-weight:300; font-style:italic;
+  color:rgba(240,237,232,0.45);
+}
+.vnote {
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(201,169,110,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════
+   QUOTE STRIP
+═══════════════════════════════════════════════════════ */
+.quote-strip {
+  padding:5rem 4rem; text-align:center;
+  background:var(--dark-2);
+  border-top:1px solid var(--gold-line);
+  border-bottom:1px solid var(--gold-line);
+}
+.quote-strip blockquote {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight:300; font-style:italic;
+  color:var(--text-main); max-width:760px; margin:0 auto;
+  line-height:1.5;
+}
+.quote-strip blockquote em { color:var(--gold); }
+.quote-strip cite {
+  display:block; margin-top:1.5rem;
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--text-dim); font-style:normal;
+}
+
+/* ═══════════════════════════════════════════════════════
+   DESIGNER / COMPANY SECTION
+═══════════════════════════════════════════════════════ */
+.designer-section {
+  background:var(--dark-2);
+  padding:var(--section-pad) 0;
+  border-top:1px solid var(--gold-line);
+}
+.designer-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:6rem;
+  align-items:center;
+}
+.designer-logo-wrap { display:flex; align-items:center; justify-content:center; }
+.designer-logo-wrap img { max-width:260px; max-height:160px; object-fit:contain; filter:brightness(1.2); }
+.designer-info {}
+.designer-eyebrow {
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); font-weight:300; margin-bottom:1rem;
+}
+.designer-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight:300; color:var(--white); margin-bottom:0.4rem;
+}
+.designer-company {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.2rem; font-style:italic; color:var(--gold);
+  margin-bottom:2rem;
+}
+.designer-rule { width:48px; height:1px; background:var(--gold); margin-bottom:2rem; }
+.contact-list { display:flex; flex-direction:column; gap:0.85rem; }
+.contact-item { display:flex; align-items:center; gap:14px; }
+.contact-icon {
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--gold-line);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.contact-icon svg { width:15px; height:15px; fill:var(--gold); }
+.contact-text a, .contact-text span {
+  font-size:14px; color:var(--text-muted); font-weight:300;
+  text-decoration:none; transition:color 0.2s;
+}
+.contact-text a:hover { color:var(--gold); }
+
+/* ═══════════════════════════════════════════════════════
+   SPONSOR / HASCOOL SECTION
+═══════════════════════════════════════════════════════ */
+.sponsor-section {
+  background:var(--dark-3);
+  padding:5rem 0;
+  border-top:1px solid rgba(201,169,110,0.08);
+  border-bottom:1px solid rgba(201,169,110,0.08);
+}
+.sponsor-inner {
+  display:flex; flex-direction:column; align-items:center;
+  gap:2rem; text-align:center;
+}
+.sponsor-pre {
+  font-size:9px; letter-spacing:5px; text-transform:uppercase;
+  color:var(--text-dim); font-weight:300;
+}
+.sponsor-logo-wrap {
+  padding:1.5rem 3rem;
+  border:1px solid rgba(201,169,110,0.15);
+  display:flex; align-items:center; justify-content:center;
+}
+.sponsor-logo-wrap img {
+  max-width:220px; max-height:80px; object-fit:contain;
+  filter:brightness(1.5) contrast(0.85);
+}
+.sponsor-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.5rem; font-weight:300; color:var(--text-main);
+  font-style:italic;
+}
+.sponsor-desc {
+  font-size:13px; color:var(--text-muted); font-weight:300;
+  max-width:460px; line-height:1.8;
+}
+.sponsor-line { width:60px; height:1px; background:var(--gold-line); }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+footer {
+  background:var(--dark); padding:2.5rem 4rem;
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid rgba(201,169,110,0.08);
+}
+.footer-copy {
+  font-size:11px; letter-spacing:1px;
+  color:var(--text-dim); font-weight:300;
+}
+.footer-right {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(201,169,110,0.3); font-weight:300;
+}
+
+/* ═══════════════════════════════════════════════════════
+   WHATSAPP FLOATING BUTTON
+═══════════════════════════════════════════════════════ */
+.wa-float {
+  position:fixed; bottom:28px; right:28px; z-index:800;
+  width:58px; height:58px; border-radius:50%;
+  background:var(--green-wa);
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: waPulse 3s 2s ease-in-out infinite;
+}
+.wa-float:hover {
+  transform:scale(1.1);
+  box-shadow:0 6px 28px rgba(37,211,102,0.5);
+  animation:none;
+}
+.wa-float svg { width:28px; height:28px; fill:#fff; }
+@keyframes waPulse {
+  0%,100% { box-shadow:0 4px 20px rgba(37,211,102,0.35); }
+  50%      { box-shadow:0 4px 30px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.12); }
+}
+.wa-tooltip {
+  position:absolute; right:70px; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,0.85); color:#fff;
+  font-size:11px; white-space:nowrap; padding:5px 12px;
+  border-radius:4px; opacity:0; pointer-events:none;
+  transition:opacity 0.2s;
+}
+.wa-float:hover .wa-tooltip { opacity:1; }
+
+/* ═══════════════════════════════════════════════════════
+   CLOSING SECTION
+═══════════════════════════════════════════════════════ */
+.closing {
+  background:var(--dark-2);
+  padding:var(--section-pad) 0;
+  text-align:center;
+  border-top:1px solid var(--gold-line);
+}
+.closing-orn { width:1px; height:64px; background:linear-gradient(to bottom,transparent,var(--gold),transparent); margin:0 auto 2.5rem; }
+.closing-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(2rem,4vw,3.5rem); font-weight:300;
+  color:var(--white); margin-bottom:1.25rem; line-height:1.15;
+}
+.closing-title em { font-style:italic; color:var(--gold); }
+.closing-text {
+  font-size:14px; color:var(--text-muted); font-weight:300;
+  max-width:480px; margin:0 auto 3rem; line-height:1.85;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media (max-width:1024px) {
+  .container { padding:0 2rem; }
+  .gallery-3, .gallery-4 { grid-template-columns:1fr 1fr; }
+  .features-grid, .features-grid-light { grid-template-columns:1fr 1fr; }
+  .floorplan-block, .floorplan-block-light { grid-template-columns:1fr; }
+  .floorplan-info, .floorplan-info-light { border-left:none; border-top:1px solid var(--gold-line); }
+  .designer-grid { grid-template-columns:1fr; gap:3rem; text-align:center; }
+  .designer-rule { margin:0 auto 2rem; }
+  .section-head { grid-template-columns:1fr; gap:0.5rem; }
+  .section-num { font-size:3rem; margin-bottom:0.5rem; }
+}
+@media (max-width:768px) {
+  :root { --section-pad:4rem; }
+  .gallery-hero { grid-template-columns:1fr; }
+  .gallery-2, .gallery-2-3 { grid-template-columns:1fr; }
+  .img-xl, .img-lg { height:260px; }
+  .img-md { height:220px; }
+  .img-sm, .img-xs { height:190px; }
+  .nav-links { display:none; flex-direction:column; position:absolute; top:60px; left:0; right:0; background:rgba(13,13,13,0.97); padding:1rem 0; }
+  .nav-links.open { display:flex; }
+  .nav-links a { height:48px; line-height:48px; padding:0 2rem; }
+  .nav-hamburger { display:flex; flex-direction:column; }
+  .features-grid, .features-grid-light { grid-template-columns:1fr; }
+  .floorplan-stats, .floorplan-stats-light { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:1rem; text-align:center; }
+  .hero-meta { gap:2rem; flex-wrap:wrap; }
+  .hero-client-row { flex-direction:column; gap:0.5rem; }
+  .hero-sep { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── LIGHTBOX ───────────────────────────────────────── -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLB()">×</button>
+  <button class="lb-prev" onclick="navLB(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-next" onclick="navLB(1)">&#8594;</button>
+  <div id="lb-caption"></div>
+</div>
+
+<!-- ── WHATSAPP BUTTON ────────────────────────────────── -->
+<a class="wa-float" href="https://wa.me/message/WS2OJRQ37VSDL1" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Interior Design &nbsp;·&nbsp; 3D Visualization &nbsp;·&nbsp; 2025
+    <span class="hero-badge-dot"></span>
+  </div>
+  <h1 class="hero-project">
+    Soleya<br><em>Compound</em>
+  </h1>
+  <div class="hero-line"></div>
+  <div class="hero-client-row">
+    <span class="hero-client-label">Client</span>
+    <div class="hero-sep"></div>
+    <span class="hero-client-name">M. Ashraf</span>
+    <div class="hero-sep"></div>
+    <span class="hero-client-label">Residential · Full Interior</span>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-lbl">Master Suite</span>
+      <span class="hero-meta-val">With Dressing</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-lbl">Bedrooms</span>
+      <span class="hero-meta-val">2 Additional</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-lbl">Living Area</span>
+      <span class="hero-meta-val">Salon · Lounge</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-lbl">Render Type</span>
+      <span class="hero-meta-val">Full 3D CGI</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-txt">Scroll</span>
+    <div class="hero-scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ── STICKY NAV ─────────────────────────────────────── -->
+<nav class="nav" id="main-nav">
+  <div class="nav-brand">
+    <img data-gd="logo" src="" alt="4H Construction" onerror="this.style.display='none'">
+    <span class="nav-brand-name">4H · AR. Ibrahim</span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#master">Master Suite</a></li>
+    <li><a href="#bed1">Bedroom 1</a></li>
+    <li><a href="#bed2">Bedroom 2</a></li>
+    <li><a href="#living">Living Room</a></li>
+    <li><a href="#designer">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════
+  <!-- 01 — MASTER BEDROOM (WITH DRESSING)
+══════════════════════════════════════════════════════ -->
+<section class="section section-dark" id="master">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div class="section-num">01</div>
+      <div>
+        <p class="section-tag">Master Suite · With Dressing Room</p>
+        <h2 class="section-title">The Art of<br><em>Luxurious Rest</em></h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">
+          A masterclass in warm luxury — deep walnut joinery, glass-front wardrobes, herringbone parquet, and copper accents compose a suite that elevates every moment of daily ritual.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery — تقسيم الـ 6 صور (2 + 3 + 1) -->
+    
+    <!-- الصف الأول: صورتين كبيرتين -->
+    <div class="gallery-hero reveal delay-1">
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="master_1" src="" alt="Master Suite — Grand Overview"></div>
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="master_2" src="" alt="Master Suite — Wardrobe Angle"></div>
+    </div>
+
+    <!-- الصف الثاني: 3 صور متوسطة -->
+    <div class="gallery-3 reveal delay-2">
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="master_3" src="" alt="Master Suite — Window View"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="master_4" src="" alt="Master Suite — Bed Wall"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="master_5" src="" alt="Master Suite — Detail Shot"></div>
+    </div>
+
+    <!-- الصف الثالث: صورة واحدة عريضة (نفس تقسيمة الصالون) -->
+    <div class="reveal delay-3">
+      <div class="img-wrap img-lg" onclick="openLB(this)" style="width:100%">
+        <img data-gd="master_6" src="" alt="Master Suite — Dressing Area">
+      </div>
+    </div>
+
+    <!-- Floor Plan -->
+    <div class="floorplan-block reveal delay-2">
+      <div class="floorplan-img-wrap">
+        <img data-gd="master_fp" src="" alt="Master Suite — Floor Plan">
+      </div>
+      <div class="floorplan-info">
+        <span class="floorplan-badge">Floor Plan</span>
+        <h3 class="floorplan-title">Master Suite Layout</h3>
+        <p class="floorplan-desc">
+          The master suite integrates a walk-in dressing room with built-in vanity, glass wardrobe system, king bed zone, and a dedicated lounge corner.
+        </p>
+        <div class="floorplan-stats">
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Bed Type</div>
+            <div class="floorplan-stat-val">King Platform</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Wardrobe</div>
+            <div class="floorplan-stat-val">Glass-Front</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Dressing</div>
+            <div class="floorplan-stat-val">Walk-In</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Flooring</div>
+            <div class="floorplan-stat-val">Herringbone</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="features-grid reveal delay-3">
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Flooring</div>
+        <div class="feature-name">Herringbone Parquet</div>
+        <div class="feature-desc">Rich warm-tone herringbone wood pattern adding depth and dynamic visual flow to the entire suite.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Wardrobe System</div>
+        <div class="feature-name">Glass-Front with Walnut</div>
+        <div class="feature-desc">Smoked glass sliding doors on a dark metal frame, integrated with open walnut shelving.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Lighting</div>
+        <div class="feature-name">Cove + Accent System</div>
+        <div class="feature-desc">Concealed cove lighting in double tray ceiling with corridor wall-mounted brass sconces.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Wall Feature</div>
+        <div class="feature-name">Copper Petal Wall Art</div>
+        <div class="feature-desc">3D copper metallic petal cluster — a sculptural centerpiece that anchors the bedroom wall.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Bed Design</div>
+        <div class="feature-name">Upholstered Platform</div>
+        <div class="feature-desc">Tufted grey-fabric platform bed with layered bedding in beige, brown, and houndstooth accents.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Entertainment</div>
+        <div class="feature-name">TV Corner + Sound Bar</div>
+        <div class="feature-desc">Floating marble shelf with mounted sound bar and large-format Sony screen.</div>
+      </div>
+    </div>
+
+    <!-- Video -->
+    <div class="reveal delay-4" style="margin-top:8px; overflow:hidden; border:1px solid rgba(180,140,90,0.2);">
+      <video data-gd="master_vid" autoplay muted loop playsinline style="width:100%; display:block;">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     02 — BEDROOM 1 (TWO SINGLE BEDS)
+══════════════════════════════════════════════════════ -->
+<section class="section section-light" id="bed1">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div class="section-num" style="color:rgba(176,122,69,0.15)">02</div>
+      <div>
+        <p class="section-tag-dark">Bedroom 1 · Twin Beds</p>
+        <h2 class="section-title-dark">Bold Accents,<br><em>Refined Balance</em></h2>
+        <div class="section-rule-dark"></div>
+        <p class="section-desc-dark">
+          A sophisticated twin room contrasting royal blue against warm beige — the stone-grey wardrobe and copper geometric wall panels give this room a bold, self-confident identity.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery-hero reveal delay-1">
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="bed1_1" src="" alt="Bedroom 1 — Main Overview"></div>
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="bed1_2" src="" alt="Bedroom 1 — Bed Wall"></div>
+    </div>
+    <div class="gallery-2 reveal delay-2">
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="bed1_3" src="" alt="Bedroom 1 — Window & Seating"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="bed1_4" src="" alt="Bedroom 1 — Wardrobe Detail"></div>
+    </div>
+
+    <!-- Floor Plan -->
+    <div class="floorplan-block-light reveal delay-2">
+      <div class="floorplan-img-wrap-light">
+        <img data-gd="bed1_fp" src="" alt="Bedroom 1 — Floor Plan">
+      </div>
+      <div class="floorplan-info-light">
+        <span class="floorplan-badge" style="color:var(--copper)">Floor Plan</span>
+        <h3 class="floorplan-title-light">Bedroom 1 — Twin Layout</h3>
+        <p class="floorplan-desc-light">
+          Two single beds arranged with a shared bedside between them, a lounge corner with armchairs and round table, and a stone-grey wardrobe system with interior lighting.
+        </p>
+        <div class="floorplan-stats-light">
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Bed Type</div>
+            <div class="floorplan-stat-val-light">Two Singles</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Wardrobe</div>
+            <div class="floorplan-stat-val-light">Stone Grey</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Accent Color</div>
+            <div class="floorplan-stat-val-light">Royal Blue</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Vanity</div>
+            <div class="floorplan-stat-val-light">Marble Top</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-grid-light reveal delay-3">
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Color Palette</div>
+        <div class="feature-name-light">Royal Blue & Warm Beige</div>
+        <div class="feature-desc-light">Deep cobalt blue pillows and bed runner against a warm beige base — timeless and refined.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Wardrobe</div>
+        <div class="feature-name-light">Stone Grey Panels</div>
+        <div class="feature-desc-light">Matte stone grey wardrobe with partial glass door, interior LED rail lighting and lower drawers.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Headboard Wall</div>
+        <div class="feature-name-light">Textured Fabric + Artwork</div>
+        <div class="feature-desc-light">Beige textured wall panel behind beds with a framed blue-mountain horizontal artwork above.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Lounge Corner</div>
+        <div class="feature-name-light">Houndstooth Armchairs</div>
+        <div class="feature-desc-light">Pair of houndstooth-upholstered armchairs with round side table and botanical accent piece.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Wall Décor</div>
+        <div class="feature-name-light">Copper Geometric Panels</div>
+        <div class="feature-desc-light">A five-panel copper metallic geometric installation above the TV zone — bold and architectural.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Vanity Table</div>
+        <div class="feature-name-light">Marble Top Dressing</div>
+        <div class="feature-desc-light">Curved marble-surface vanity on gold legs with a round mirror and curated beauty accessories.</div>
+      </div>
+    </div>
+
+    <div class="reveal delay-4" style="margin-top:8px; overflow:hidden; border:1px solid rgba(180,140,90,0.2);">
+  <video data-gd="bed1_vid" autoplay muted loop playsinline style="width:100%; display:block;">
+    <source src="" type="video/mp4">
+  </video>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     03 — BEDROOM 2 (KING BED)
+══════════════════════════════════════════════════════ -->
+<section class="section section-dark" id="bed2">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div class="section-num">03</div>
+      <div>
+        <p class="section-tag">Bedroom 2 · King Bed</p>
+        <h2 class="section-title">Serene Tones,<br><em>Modern Soul</em></h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">
+          A quietly confident bedroom — vertical slatted wood panels, full-mirror sliding wardrobes, and a rose-gold vanity compose a space where calm and elegance coexist effortlessly.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery-hero reveal delay-1">
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="bed2_1" src="" alt="Bedroom 2 — Main View"></div>
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="bed2_2" src="" alt="Bedroom 2 — Dressing Side"></div>
+    </div>
+    <div class="gallery-2 reveal delay-2">
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="bed2_3" src="" alt="Bedroom 2 — Wardrobe Detail"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="bed2_4" src="" alt="Bedroom 2 — Bed & Lighting"></div>
+    </div>
+
+    <!-- Floor Plan -->
+    <div class="floorplan-block reveal delay-2">
+      <div class="floorplan-img-wrap">
+        <img data-gd="bed2_fp" src="" alt="Bedroom 2 — Floor Plan">
+      </div>
+      <div class="floorplan-info">
+        <span class="floorplan-badge">Floor Plan</span>
+        <h3 class="floorplan-title">Bedroom 2 — King Layout</h3>
+        <p class="floorplan-desc">
+          Centred king platform bed flanked by floating nightstands, with a full-height mirror wardrobe along one wall, pendant-lit rose-gold vanity, and a corner lounge seat.
+        </p>
+        <div class="floorplan-stats">
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Bed Type</div>
+            <div class="floorplan-stat-val">King Platform</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Wardrobe</div>
+            <div class="floorplan-stat-val">Full Mirror</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Vanity</div>
+            <div class="floorplan-stat-val">Rose Gold</div>
+          </div>
+          <div class="floorplan-stat">
+            <div class="floorplan-stat-lbl">Rug</div>
+            <div class="floorplan-stat-val">Ornate Pattern</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-grid reveal delay-3">
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Headboard Wall</div>
+        <div class="feature-name">Slatted Wood Panels</div>
+        <div class="feature-desc">Dark vertical slatted wood panel flanked by cream upholstered wall tiles — rich textural contrast.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Wardrobe</div>
+        <div class="feature-name">Full-Height Mirror Doors</div>
+        <div class="feature-desc">Dark grey sliding mirror wardrobe spanning the full wall with open shelving unit at the side.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Area Rug</div>
+        <div class="feature-name">Ornate Classic Pattern</div>
+        <div class="feature-desc">A light-toned rug with ornate classical motifs anchors the bed zone and softens the hardwood floor.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Vanity</div>
+        <div class="feature-name">Rose-Gold Dressing Table</div>
+        <div class="feature-desc">Curved rose-gold vanity with oval mirror, pendant ring lights, and curated cosmetic layout.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Lighting</div>
+        <div class="feature-name">Pendant Rings + Cove</div>
+        <div class="feature-desc">Twin metal ring pendants above the vanity with a coral-toned cove edge light tracing the ceiling.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-bar"></div>
+        <div class="feature-lbl">Seating</div>
+        <div class="feature-name">Houndstooth Armchair</div>
+        <div class="feature-desc">Single fine-houndstooth armchair with a dark round side table to complete the reading corner.</div>
+      </div>
+    </div>
+
+    <div class="reveal delay-4" style="margin-top:8px; overflow:hidden; border:1px solid rgba(180,140,90,0.2);">
+  <video data-gd="bed2_vid" autoplay muted loop playsinline style="width:100%; display:block;">
+    <source src="" type="video/mp4">
+  </video>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     04 — LIVING ROOM / SALON
+══════════════════════════════════════════════════════ -->
+<section class="section section-light" id="living">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div class="section-num" style="color:rgba(176,122,69,0.15)">04</div>
+      <div>
+        <p class="section-tag-dark">Living Room · Salon</p>
+        <h2 class="section-title-dark">Gathering in<br><em>Grand Style</em></h2>
+        <div class="section-rule-dark"></div>
+        <p class="section-desc-dark">
+          The heart of the home — a living room designed for both intimacy and impressiveness. Curated furniture arrangements, statement lighting, and a cohesive material palette create a salon worthy of Soleya Compound.
+        </p>
+      </div>
+    </div>
+
+    <!-- Main hero gallery -->
+    <div class="gallery-hero reveal delay-1">
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="living_1" src="" alt="Living Room — Grand Overview"></div>
+      <div class="img-wrap img-xl" onclick="openLB(this)"><img data-gd="living_2" src="" alt="Living Room — Seating Area"></div>
+    </div>
+    <div class="gallery-3 reveal delay-2">
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="living_3" src="" alt="Living Room — Detail 1"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="living_4" src="" alt="Living Room — Detail 2"></div>
+      <div class="img-wrap img-md" onclick="openLB(this)"><img data-gd="living_5" src="" alt="Living Room — Feature Wall"></div>
+    </div>
+    <div class="reveal delay-3">
+      <div class="img-wrap img-lg" onclick="openLB(this)" style="width:100%"><img data-gd="living_6" src="" alt="Living Room — Full Panorama"></div>
+    </div>
+
+    <!-- Floor Plan -->
+    <div class="floorplan-block-light reveal delay-2">
+      <div class="floorplan-img-wrap-light">
+        <img data-gd="living_fp" src="" alt="Living Room — Floor Plan">
+      </div>
+      <div class="floorplan-info-light">
+        <span class="floorplan-badge" style="color:var(--copper)">Floor Plan</span>
+        <h3 class="floorplan-title-light">Salon Layout</h3>
+        <p class="floorplan-desc-light">
+          Open-plan living with a defined sofa arrangement around a central coffee table, a feature TV wall with flanking display units, and a dining connection at the far end.
+        </p>
+        <div class="floorplan-stats-light">
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Layout</div>
+            <div class="floorplan-stat-val-light">Open Plan</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Feature</div>
+            <div class="floorplan-stat-val-light">TV Wall</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Flooring</div>
+            <div class="floorplan-stat-val-light">Herringbone</div>
+          </div>
+          <div class="floorplan-stat-light">
+            <div class="floorplan-stat-lbl-light">Lighting</div>
+            <div class="floorplan-stat-val-light">Multi-Layer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-grid-light reveal delay-3">
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Sofa Arrangement</div>
+        <div class="feature-name-light">L-Shape + Accent Chairs</div>
+        <div class="feature-desc-light">A generous L-shaped sectional paired with complementary accent chairs anchors the central living zone.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Feature Wall</div>
+        <div class="feature-name-light">TV & Display Wall</div>
+        <div class="feature-desc-light">A full-height integrated TV wall with material contrast panelling and recessed lighting creates a dramatic focal point.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Flooring</div>
+        <div class="feature-name-light">Herringbone Parquet</div>
+        <div class="feature-desc-light">Warm multi-tone herringbone wood flooring unifies the entire open-plan space with fluid elegance.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Lighting</div>
+        <div class="feature-name-light">Chandelier + Cove</div>
+        <div class="feature-desc-light">Statement pendant or chandelier at the centre complemented by concealed cove lighting at the ceiling perimeter.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Coffee Table</div>
+        <div class="feature-name-light">Designer Centre Piece</div>
+        <div class="feature-desc-light">A sculptural coffee table in marble or dark stone serves as the visual anchor of the seating group.</div>
+      </div>
+      <div class="feature-card-light">
+        <div class="feature-bar-light"></div>
+        <div class="feature-lbl-light">Accessories</div>
+        <div class="feature-name-light">Curated Décor Layer</div>
+        <div class="feature-desc-light">Botanicals, decorative vessels, and art objects are layered throughout to add life and editorial depth.</div>
+      </div>
+    </div>
+
+  <div class="reveal delay-4" style="margin-top:8px; overflow:hidden; border:1px solid rgba(180,140,90,0.2);">
+  <video data-gd="living_vid" autoplay muted loop playsinline style="width:100%; display:block;">
+    <source src="" type="video/mp4">
+  </video>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     DESIGNER & COMPANY SECTION
+══════════════════════════════════════════════════════ -->
+<section class="designer-section" id="designer">
+  <div class="container">
+    <div class="designer-grid">
+
+      <div class="designer-logo-wrap reveal reveal-left">
+       <img data-gd="logo" src="" alt="4H Construction — Company Logo" style="width: 2500px; height: auto;">
+</div>
+
+      <div class="designer-info reveal reveal-right">
+        <p class="designer-eyebrow">Design & Architecture</p>
+        <h2 class="designer-name">AR. Ibrahim Haskoor</h2>
+        <p class="designer-company">4H Construction · Finishing &amp; Renovation</p>
+        <div class="designer-rule"></div>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.6.57 1 1 0 011 1v3.51a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.6 1 1 0 01-.24 1.02l-2.21 2.17z"/></svg>
+            </div>
+            <div class="contact-text">
+              <a href="tel:+201288197427">+20 128 819 7427</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.6.57 1 1 0 011 1v3.51a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.6 1 1 0 01-.24 1.02l-2.21 2.17z"/></svg>
+            </div>
+            <div class="contact-text">
+              <a href="tel:+60163437497">+60 163 437 497</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="contact-text">
+              <a href="mailto:info@hascool.my">info@hascool.my</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="contact-text">
+              <a href="https://wa.me/message/WS2OJRQ37VSDL1" target="_blank">WhatsApp Direct Link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     HASCOOL SPONSOR SECTION
+══════════════════════════════════════════════════════ -->
+<section class="sponsor-section">
+  <div class="container">
+    <div class="sponsor-inner reveal">
+      <div class="sponsor-pre">HVAC Systems Partner</div>
+      <div class="sponsor-logo-wrap">
+        <img data-gd="hascool_logo" src="" alt="HASCOOL — HVAC Partner">
+      </div>
+      <div class="sponsor-line"></div>
+      <div class="sponsor-title">HVAC Systems by HASCOOL</div>
+      <p class="sponsor-desc">
+        All air conditioning systems, ventilation, and climate control solutions throughout this project are designed and supplied by <strong style="color:var(--gold);font-weight:400;">HASCOOL</strong> — ensuring optimal comfort, energy efficiency, and long-term reliability across every space.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CLOSING
+══════════════════════════════════════════════════════ -->
+<div class="closing">
+  <div class="closing-orn"></div>
+  <h2 class="closing-title reveal">Every detail<br><em>tells a story.</em></h2>
+  <p class="closing-text reveal delay-1">
+    This project is the culmination of a unified creative vision — where beauty meets function, every material serves a purpose, and every room offers an unforgettable living experience.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════ -->
+<footer>
+  <span class="footer-copy">© 2026 AR. Ibrahim Haskoor — All Rights Reserved</span>
+  <span class="footer-right">Soleya Compound · 3D Interior Design</span>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════ -->
+<script>
+const media = {
+  logo: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168855/logo_jrfcki.png',
+  hascool_logo: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168842/HASCOOL_LOGO_k4eunl.png',
+
+  master_1: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168856/master_1_t8jyiu.png',
+  master_2: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168892/master_2_ljepb6.png',
+  master_3: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168911/master_3_bymu09.png',
+  master_4: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168900/master_4_e895p3.png',
+  master_5: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168870/master_5_tqy79g.png',
+  master_6: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168880/master_6_mngprj.png',
+  master_fp: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168885/master_floor_plan_orkqan.png',
+  master_vid: 'https://res.cloudinary.com/dtisalktc/video/upload/master_kjnawp.mp4',
+
+  bed1_1: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168853/bedroom1-1_lc9p3h.png',
+  bed1_2: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168852/bedroom1-2_xf99oq.png',
+  bed1_3: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168854/bedroom1-3_gqgala.png',
+  bed1_4: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168835/bedroom1-4_ieg0si.png',
+  bed1_fp: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168834/bedroom1_floor_plan_fqpd6s.png',
+  bed1_vid: 'https://res.cloudinary.com/dtisalktc/video/upload/bedroom1_w9xk4t.mp4',
+
+  bed2_1: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168836/bedroom2-1_fryo7a.png',
+  bed2_2: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168839/bedroom2-2_p1dhoo.png',
+  bed2_3: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168841/bedroom2-3_aug8pg.png',
+  bed2_4: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168841/bedroom2-4_dr391c.png',
+  bed2_fp: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168689/LEVING_5_dagzj5.png',
+  bed2_vid: 'https://res.cloudinary.com/dtisalktc/video/upload/bedroom2_gyundk.mp4',
+
+  living_1: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168853/LEVING_1_tdtjjd.png',
+  living_2: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168848/LEVING_2_w6p9mf.png',
+  living_3: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168850/LEVING_3_vjfstg.png',
+  living_4: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168854/LEVING_4_nsrj5o.png',
+  living_5: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168904/LEVING_5_hwutt5.png',
+  living_6: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168856/LEVING_6_weqcgm.jpg',
+  living_fp: 'https://res.cloudinary.com/dtisalktc/image/upload/v1778168891/LEVING_floor_plan_dbegaf.png',
+  living_vid: 'https://res.cloudinary.com/dtisalktc/video/upload/v1778167842/living_ecnvyl.mp4'
+};
+
+function loadMedia() {
+  document.querySelectorAll('img[data-gd]').forEach(img => {
+    const key = img.getAttribute('data-gd');
+    if (media[key]) {
+      img.src = media[key];
+    }
+  });
+
+  document.querySelectorAll('video[data-gd]').forEach(video => {
+    const key = video.getAttribute('data-gd');
+    const url = media[key];
+
+    if (!url) {
+      return;
+    }
+
+    video.src = url;
+
+    const source = video.querySelector('source');
+    if (source) {
+      source.src = url;
+    }
+
+    video.load();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadMedia);
+
+/* ── Lightbox ─────────────────────────────────────── */
+let lbImgs = [], lbIdx = 0;
+
+function openLB(wrap) {
+  const img = wrap.querySelector('img');
+  lbImgs = Array.from(document.querySelectorAll('.img-wrap img'));
+  lbIdx  = lbImgs.indexOf(img);
+  showLB();
+}
+function showLB() {
+  const i = lbImgs[lbIdx];
+  document.getElementById('lb-img').src = i.src;
+  document.getElementById('lb-img').alt = i.alt;
+  document.getElementById('lb-caption').textContent = i.alt;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navLB(d) {
+  lbIdx = (lbIdx + d + lbImgs.length) % lbImgs.length;
+  showLB();
+}
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if (e.target === this) closeLB();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key==='Escape')      closeLB();
+  if (e.key==='ArrowLeft')   navLB(-1);
+  if (e.key==='ArrowRight')  navLB(1);
+});
+
+/* ── Scroll Reveal ────────────────────────────────── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('visible');
+      observer.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin:'0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+/* ── Active nav on scroll ─────────────────────────── */
+const sects   = document.querySelectorAll('section[id]');
+const navAs   = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sects.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  navAs.forEach(a => {
+    const active = a.getAttribute('href') === '#'+cur;
+    a.classList.toggle('active', active);
+  });
+});
+
+/* ── Hamburger ────────────────────────────────────── */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+</script>
+</body>
+</html>
